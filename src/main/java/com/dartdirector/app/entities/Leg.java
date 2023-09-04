@@ -1,6 +1,7 @@
 package com.dartdirector.app.entities;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Leg {
 
@@ -28,8 +29,8 @@ public class Leg {
         System.out.println("Playing leg between " + homeTeam.getName() + " and " + awayTeam.getName() + " to " + targetScore + " points.");
 
         // Load the active lineup for each team
-        ArrayList<Player> homeLineup = homeTeam.getActiveLineup();
-        ArrayList<Player> awayLineup = awayTeam.getActiveLineup();
+        List<Player> homeLineup = homeTeam.getActiveLineup();
+        List<Player> awayLineup = awayTeam.getActiveLineup();
 
         // Create indexes to keep track of which player is currently playing for each team
         int homePlayerIndex = 0;

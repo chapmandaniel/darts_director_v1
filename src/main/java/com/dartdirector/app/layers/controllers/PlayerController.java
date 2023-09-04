@@ -23,6 +23,7 @@ public class PlayerController {
         return new ResponseEntity<>(players, HttpStatus.OK);
     }
 
+
     @GetMapping("/{id}")
     public ResponseEntity<Player> getPlayerById(@PathVariable Long id) {
         Player player = playerService.findPlayerById(id);

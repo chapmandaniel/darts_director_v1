@@ -10,9 +10,10 @@ public class Player {
     private Long id;
 
     private String name;
+    @Column(unique = true)
     private String email;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "team_id")
     private Team team;
 
@@ -47,13 +48,5 @@ public class Player {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public Team getTeam() {
-        return team;
-    }
-
-    public void setTeam(Team team) {
-        this.team = team;
     }
 }

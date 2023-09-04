@@ -10,13 +10,13 @@ public class Team {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @Column(unique = true)
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Player> roster = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Player> activeLineup = new ArrayList<>();
 
     public Team() {}  // Default constructor for JPA
@@ -31,9 +31,6 @@ public class Team {
             }
         }
 
-        public ArrayList<Player> getActiveLineup() {
-            return (ArrayList<Player>) activeLineup;
-        }
 
         public void addPlayer(Player player) {
             roster.add(player);
@@ -43,9 +40,14 @@ public class Team {
             return name;
         }
 
-        public ArrayList<Player> getRoster() {
-            return (ArrayList<Player>) roster;
+        public List<Player> getActiveLineup() {
+            return activeLineup;
         }
+
+        public List<Player> getRoster() {
+            return roster;
+        }
+
 
     public void setId(Long id) {
     }
