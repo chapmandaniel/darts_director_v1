@@ -1,16 +1,32 @@
 package com.dartdirector.app.entities;
 
+import jakarta.persistence.*;
+
+@Entity
 public class Turn {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    private final Player player;
-    public int score;
-    public int dartsThrown;
+    @ManyToOne
+    @JoinColumn(name = "player_id")
+    private Player player;
 
-    public Turn(Player player) {
-        this.player = player;
+    private int score;
+
+    @ManyToOne
+    @JoinColumn(name = "scoresheet_id")
+    private ScoreSheet scoreSheet;
+
+    private int dartsThrown;
+
+    public Turn(Player currentPlayer) {
     }
 
+    public Turn() {
+
+    }
 
     public Player getPlayer() {
         return player;

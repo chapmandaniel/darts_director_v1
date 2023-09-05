@@ -30,13 +30,13 @@ public class TeamController {
     }
 
     @PostMapping
-    public ResponseEntity<Team> createTeam(@RequestBody Team team) {
+    public ResponseEntity<Team> createTeam(@RequestBody Team team) throws Exception {
         Team savedTeam = teamService.saveTeam(team);
         return ResponseEntity.ok(savedTeam);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Team> updateTeam(@PathVariable Long id, @RequestBody Team team) {
+    public ResponseEntity<Team> updateTeam(@PathVariable Long id, @RequestBody Team team) throws Exception {
         if (!teamService.getTeamById(id).isPresent()) {
             return ResponseEntity.notFound().build();
         }

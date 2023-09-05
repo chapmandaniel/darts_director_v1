@@ -24,13 +24,15 @@ public class TeamService {
         return teamRepository.findById(id);
     }
 
-    public Team saveTeam(Team team) {
-        return teamRepository.save(team);
-    }
-
     public void deleteTeam(Long id) {
         teamRepository.deleteById(id);
     }
 
-    // Any additional methods or business logic can be added here
+    public Team saveTeam(Team team) throws Exception {
+        if (teamRepository.existsByName(team.getName())) {
+            throw new Exception("A team with this name already exists.");
+        }
+        return teamRepository.save(team);
+    }
+
 }

@@ -25,30 +25,33 @@ public class Team {
         this.name = name;
     }
 
-        public void setDefaultLineup() {
-            for (int i = 0; i < 5; i++) {
-                activeLineup.add(roster.get(i));
-            }
+    public void setDefaultLineup() {
+        for (int i = 0; i < 5; i++) {
+            activeLineup.add(roster.get(i));
         }
+    }
 
 
-        public void addPlayer(Player player) {
-            roster.add(player);
-        }
+    public void addPlayer(Player player) {
+        roster.add(player);
+    }
 
-        public String getName() {
-            return name;
-        }
+    public String getName() {
+        return name;
+    }
 
-        public List<Player> getActiveLineup() {
-            return activeLineup;
-        }
+    public List<Player> getActiveLineup() {
+        return activeLineup;
+    }
 
-        public List<Player> getRoster() {
-            return roster;
-        }
+    public List<Player> getRoster() {
+        return roster;
+    }
 
-
+    public Long getId() {
+        return id;
+    }
+    
     public void setId(Long id) {
     }
 }
