@@ -30,6 +30,12 @@ public class ScoreSheet {
 
     private int doubleFinisherScore;
 
+    private Team currentTeam; // Currently playing team
+    private boolean isComplete = false;
+    private int homeScore;
+    private int awayScore;
+    private final int targetScore = 501; // Standard game of darts target score
+
     public ScoreSheet(Team team1, Team team2) {
         this.team1 = team1;
         this.team2 = team2;
@@ -58,19 +64,61 @@ public class ScoreSheet {
         this.doubleFinisherScore = score;
     }
 
-    public void playMatch() {
-        for (int i = 0; i < 6; i++) {
-            playLeg();
-            updateLineup();
+    public void playLeg() {
+        if (currentTeam == null) {currentTeam = team1;}
+
+        // Load the active lineup for each team
+        List<Player> team1Lineup = activeLineupTeam1;
+        List<Player> team2Lineup = activeLineupTeam2;
+
+        // Create indexes to keep track of which player is currently playing for each team
+        int team1PlayerIndex = 0;
+        int team2PlayerIndex = 0;
+
+        // Continue the turns until leg is complete.
+        while (!isComplete) {
+
+            // Determine which player index to use based on the current team
+            int currentPlayerIndex = (currentTeam == team1) ? team1PlayerIndex : team2PlayerIndex;
+
+            // Retrieve the current player from the current team's active lineup
+            Player currentPlayer = currentTeam.getActiveLineup().get(currentPlayerIndex);
+
+            // Simulate the current player's turn.
+            Turn turn = new Turn(currentPlayer);
+            int score = (int) (Math.random() * 100) + 1;  // Generate a random score between 1 and 100
+            turn.setScore(score);
+            turn.setDartsThrown(3);  // We assume 3 darts are thrown by a player
+
+            // Record the current player's turn.
+            turns.add(turn);
+
+            // Update the current team's score
+            if (currentTeam == team1) {
+                this.homeScore += score;
+            } else {
+                this.awayScore += score;
+            }
+
+            // Check if the leg is complete
+            if (this.homeScore >= this.targetScore || this.awayScore >= this.targetScore) {
+                isComplete = true;
+                if (this.homeScore >= this.targetScore) {
+                    setDoubleFinisher(currentPlayer, homeScore);
+                } else {
+                    setDoubleFinisher(currentPlayer, awayScore);
+                }
+            }
+
+            // Switch to the other team
+            currentTeam = (currentTeam == team1) ? team2 : team1;
+
+            if (currentTeam == team1) {
+                team2PlayerIndex = (team2PlayerIndex + 1) % team2.getActiveLineup().size();
+            } else {
+                team1PlayerIndex = (team1PlayerIndex + 1) % team1.getActiveLineup().size();
+            }
         }
-    }
-
-    private void playLeg() {
-        // logic for playing a single leg
-    }
-
-    private void updateLineup() {
-        // logic for updating the lineup
     }
 
     // ... getters and setters ...
