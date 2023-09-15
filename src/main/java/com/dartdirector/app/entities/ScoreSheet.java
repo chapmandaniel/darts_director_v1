@@ -58,6 +58,21 @@ public class ScoreSheet {
         this.doubleFinisherScore = score;
     }
 
+    public void playMatch() {
+        for (int i = 0; i < 6; i++) {
+            playLeg();
+            updateLineup();
+        }
+    }
+
+    private void playLeg() {
+        // logic for playing a single leg
+    }
+
+    private void updateLineup() {
+        // logic for updating the lineup
+    }
+
     // ... getters and setters ...
 
     public Team getTeam1() {
